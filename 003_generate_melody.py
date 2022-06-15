@@ -5,7 +5,7 @@ from re import S
 # additional imports
 import torch
 import note_seq
-from music21 import *
+from  music21 import *
 
 # internal imports
 import improv_rnn
@@ -30,20 +30,26 @@ def main(args):
 def create_score(melody_events, chords):
     #do stuff
 
-    print(melody_events)
-
-    #melody_events = [60, -1, -2, -2, 65, -2, 62, -2, 62, -2, -1, -2, 62, -2, 62, -2, 62, -2, -1, -2, 62, -2, -1, -2,63, -2, 62, -2, 62, -2, 62, -2, -1, -2, 64, -2, 62, -2, -2, -2, -2, -2, 60, -2, -2, -2, 55, -2, 60, -2, -1, -2, 64, -2, 60, -2, 64, -2, 60, -2, 60, -2, -1, -2, 65, -2, 62, -2, -2, -2, -2, -2,62, -2, -2, -2, 60, -2, 65, -2, -1, -2, 67, -2, 64, -2, 64, -2, 64, -2, 60, -2, -2, -2, 64, -2,65, -2, -2, -2, -1, -2, 65, -2, -2, -2, 65, -2, 65, -2, -2, -2]
     #print(melody_events)
 
+
+    # unit test steps per quarter
+    #melody_events = [60, -1, -2, -2, 65, -2, 62, -2, 62, -2, -1, -2, 62, -2, 62, -2, 62, -2, -1, -2, 62, -2, -1, -2,63, -2, 62, -2, 62, -2, 62, -2, -1, -2, 64, -2, 62, -2, -2, -2, -2, -2, 60, -2, -2, -2, 55, -2, 60, -2, -1, -2, 64, -2, 60, -2, 64, -2, 60, -2, 60, -2, -1, -2, 65, -2, 62, -2, -2, -2, -2, -2,62, -2, -2, -2, 60, -2, 65, -2, -1, -2, 67, -2, 64, -2, 64, -2, 64, -2, 60, -2, -2, -2, 64, -2,65, -2, -2, -2, -1, -2, 65, -2, -2, -2, 65, -2, 65, -2, -2, -2]
+
+    #melody_events = [60, -2, -2, 60, -2, -2, 60, -2, -2, 60, -2, -2, 60, -2, -2, -2, 60, -2, -2, -2, 60, -2, -2, -2]
+
+    #melody_events = [60, -2, -2, -2, 60, -2, -2, -2, 60, -2, -2, -2]
+    print(melody_events)
+
     s = stream.Score(id='Improv RNN')
-    p0 = stream.Part(id='Base') #todo
+    p0 = stream.Part(id='Base')
     p1 = stream.Part(id='Melody')
 
     # Abtastrate: taste jedes achtel/viertel etc ab, spiele neue Note oder verlängere die vorhandene Note
 
     step = 1
-    smallest = 0.25
-
+   # smallest = 0.25
+    smallest = 1/12
     for i in range(int(len(melody_events) / step)):
         dur = smallest
         i = i * step
@@ -73,7 +79,7 @@ if __name__ == "__main__":
     # parse command line options
     parser = argparse.ArgumentParser(description='Generate melody given a chord sequence.')
     parser.add_argument("--backing_chords", default="C G Am F C G F C", type=str, help="Chord sequence.")
-    parser.add_argument("--steps_per_chord", default=16, type=int, help="Number of steps per chord, 4 steps = 1 quarter note duration.")
+    parser.add_argument("--steps_per_chord", default=48, type=int, help="Number of steps per chord, 4 steps = 1 quarter note duration.")
     parser.add_argument("--model", default="checkpoints/checkpoint_950_triplets.pth", type=str, help="Path to model checkpoint.")
     parser.add_argument("--output", default="out.mid", type=str, help="Filename of output midi file.")
     args = parser.parse_args()

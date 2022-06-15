@@ -23,7 +23,7 @@ hparams = {
 }
 
 
-def generate_sequnce(encoder, model, backing_chords = 'C G Am F C G F C', primer_melody = [60], steps_per_chord = 16, qpm = 120, steps_per_quarter = 12, render_chords=True):
+def generate_sequnce(encoder, model, backing_chords = 'C G Am F C G F C', primer_melody = [60], steps_per_chord = 48, qpm = 120, steps_per_quarter = 12, render_chords=True):
   raw_chords = backing_chords.split()
   repeated_chords = [chord for chord in raw_chords for _ in range(steps_per_chord)]
   backing_chords = note_seq.ChordProgression(repeated_chords)
