@@ -42,7 +42,7 @@ class ImprovDataset(torch.utils.data.Dataset):
         return len(self.hdf.keys())
 
 
-def extract_lead_sheets(sequence, steps_per_quarter=4, min_bars=7, max_steps_truncate=512, gap_bars=1.0, pad_end=False, ignore_polyphonic_notes=True, filter_drums=True, transpose_to_all_keys=True):
+def extract_lead_sheets(sequence, steps_per_quarter=12, min_bars=7, max_steps_truncate=512, gap_bars=1.0, pad_end=False, ignore_polyphonic_notes=True, filter_drums=True, transpose_to_all_keys=True):
     """Extracts a LeadSheets from the given NoteSequence.
     https://github.com/magenta/magenta/blob/be6558f1a06984faff6d6949234f5fe9ad0ffdb5/magenta/pipelines/lead_sheet_pipelines.py#L32
     Args:
